@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,13 +29,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double a = 0;
-  double b = 0;
-  double sumResult = 0;
+  int a = 0;
+  int b = 0;
+  int sumResult = 0;
   Future<void> _sum() async {
-    setState(() {
-      sumResult = a + b;
-    });
+    const channel = MethodChannel('native-app/channel');
+    try {
+      final sum = await channel.invokeMethod('calcSum', {"a": a, "b": b});
+      setState(() {
+        sumResult = sum;
+      });
+    } on PlatformException catch (_) {
+      setState(() {
+        sumResult = 0;
+      });
+    }
   }
 
   @override
@@ -53,21 +62,23 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Sum is: ${sumResult.toStringAsFixed(2)}',
+                'Sum is: ${sumResult.toString()}',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               TextField(
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                decoration: InputDecoration(label: Text('A')),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: false),
+                decoration: const InputDecoration(label: Text('A')),
                 onChanged: (value) => setState(() {
-                  a = double.tryParse(value) ?? 0;
+                  a = int.tryParse(value) ?? 0;
                 }),
               ),
               TextField(
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                decoration: InputDecoration(label: Text('B')),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: false),
+                decoration: const InputDecoration(label: Text('B')),
                 onChanged: (value) => setState(() {
-                  b = double.tryParse(value) ?? 0;
+                  b = int.tryParse(value) ?? 0;
                 }),
               ),
               const SizedBox(
