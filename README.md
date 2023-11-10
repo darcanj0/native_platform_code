@@ -1,16 +1,15 @@
-# native_platform_code
 
-A new Flutter project.
+# Native Platform Code
 
-## Getting Started
+This is a hands on learning session I took in order to learn how to use Platform Specific code (Kotlin + Swift) in Flutter applications.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## What I learnt
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+How to implement funcionalities based on channels that resolve to methods in native languages depending on the platform, i.e. Android + Kotlin, Ios + Swift
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Autores
+
+- [@darcanj0](https://www.github.com/darcanj0)
+
